@@ -7,7 +7,6 @@ import {
   Grid,
   Box,
   Paper,
-  CircularProgress,
   Card,
   CardContent,
   CardMedia
@@ -32,7 +31,6 @@ function DeckDetails() {
       <Container maxWidth="xl" sx={{ mt: 4 }}>
         <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
           <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '200px' }}>
-            <CircularProgress />
           </Box>
         </Paper>
       </Container>

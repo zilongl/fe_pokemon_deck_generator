@@ -36,6 +36,15 @@ function DeckList() {
       <Paper elevation={3} sx={{ p: 3, mt: 4, borderRadius: 2 }}>
         <Typography variant="h4" gutterBottom>
           Decks
+          <Button
+            variant="contained"
+            color="primary"
+            component={Link}
+            to="/create-deck"
+            sx = {{ ml: 2, minWidth: 0}}
+          >
+            +
+          </Button>
         </Typography>
         <TextField
           label="Filter by card type"
@@ -56,16 +65,7 @@ function DeckList() {
             </ListItem>
           ))}
         </List>
-        <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>
-          <Button
-            variant="contained"
-            color="primary"
-            component={Link}
-            to="/create-deck"
-          >
-            + Create New Deck
-          </Button>
-        </Box>
+
       </Paper>
     </Container>
   );
