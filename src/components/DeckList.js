@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import {
+  Container,
+  Typography,
+  TextField,
+  List,
+  ListItem,
+  ListItemText,
+  Box,
+  Button,
+  Paper,
+} from '@mui/material';
 
 function DeckList() {
   const [decks, setDecks] = useState([]);
@@ -21,22 +32,42 @@ function DeckList() {
   );
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Filter by card type"
-        value={filter}
-        onChange={event => setFilter(event.target.value)}
-      />
-      <h1>Deck List <button><Link to="/create-deck">+</Link></button></h1> 
-        {filteredDecks.map(deck => (
-          <li key={deck.id}>
-            <Link to={`/decks/${deck.id}`}>
-              {deck.name} ({deck.card_type})
-            </Link>
-          </li>
-        ))}
-    </div>
+    <Container maxWidth="md">
+      <Paper elevation={3} sx={{ p: 3, mt: 4, borderRadius: 2 }}>
+        <Typography variant="h4" gutterBottom>
+          Decks
+        </Typography>
+        <TextField
+          label="Filter by card type"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          fullWidth
+          margin="normal"
+        />
+        <List>
+          {filteredDecks.map((deck) => (
+            <ListItem
+              button
+              component={Link}
+              to={`/decks/${deck.id}`}
+              key={deck.id}
+            >
+              <ListItemText primary={`${deck.name} (${deck.card_type})`} />
+            </ListItem>
+          ))}
+        </List>
+        <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>
+          <Button
+            variant="contained"
+            color="primary"
+            component={Link}
+            to="/create-deck"
+          >
+            + Create New Deck
+          </Button>
+        </Box>
+      </Paper>
+    </Container>
   );
 }
 

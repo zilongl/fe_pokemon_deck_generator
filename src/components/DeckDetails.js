@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import {
+  Container,
+  Typography,
+  Grid,
+  Box,
+  Paper,
+  CircularProgress,
+  Card,
+  CardContent,
+  CardMedia
+} from '@mui/material';
 
 function DeckDetails() {
   const { id } = useParams();
@@ -17,25 +28,56 @@ function DeckDetails() {
   }, [id]);
 
   if (!deck) {
-    return <div>Loading...</div>;
+    return (
+      <Container maxWidth="xl" sx={{ mt: 4 }}>
+        <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '200px' }}>
+            <CircularProgress />
+          </Box>
+        </Paper>
+      </Container>
+    );
   }
 
   return (
-    <div>
-      <h1>{deck.name} - {deck.card_type}</h1>
-      <ul>
-        {deck.cards.map(card => (
-          <li key={card.id}>
-            <img src={card.image_url} alt={card.name} />
-            <p>{card.name}</p>
-            <p>{card.type}</p>
-            <p>Level: {card.level}</p>
-            <p>HP: {card.hp}</p>
-            <p>{card.subtype}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Container maxWidth="xl" sx={{ mt: 4 }}>
+      <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
+        <Typography variant="h4" gutterBottom>
+          {deck.name} - {deck.card_type}
+        </Typography>
+        <Grid container spacing={3}>
+          {deck.cards.map(card => (
+            <Grid item xs={12} sm={6} md={4} lg={3} xl={3} key={card.id}>
+              <Card sx={{ maxWidth: 345, mx: 'auto' }}>
+                <CardMedia
+                  component="img"
+                  image={card.image_url}
+                  alt={card.name}
+                  sx={{ height: 300, objectFit: 'contain' }}
+                />
+                <CardContent>
+                  <Typography variant="h6" gutterBottom>
+                    {card.name}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    Type: {card.card_type}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    HP: {card.hp}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    Supertype: {card.supertype}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    Level: {card.level ? card.level : 'N/A'}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Paper>
+    </Container>
   );
 }
 
